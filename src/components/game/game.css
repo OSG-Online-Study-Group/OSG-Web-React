@@ -1,68 +1,37 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
 .modo-container {
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(180deg, #1b0b2e, #2b0f45);
-  color: white;
-  display: flex;
-  flex-direction: column;
+  width: 100vw; height: 100vh;
+  background: #1b0b2e;
+  color: white; display: flex; flex-direction: column;
 }
 
-/* HEADER */
 .modo-header {
-  height: 100px;
+ height: 130px; /* Borda menor */
   background-color: #2d1846;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
-  padding: 20px 40px;
-  position: relative;
+  border-bottom-left-radius: 35px; border-bottom-right-radius: 35px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.modo-header h1 {
-  text-align: center;
-  font-size: 28px;
+.modo-header h1 { font-size: 24px; text-align: center; }
+
+.voltar-btn {
+  position: absolute; left: 25px; top: 50%;
+  transform: translateY(-50%); background: none; border: none;
+  color: #c644e0; font-size: 24px; cursor: pointer;
 }
 
-.voltar {
-  position: absolute;
-  left: 30px;
-  top: 35px;
-  color: #C644E0;
-  cursor: pointer;
-}
-
-/* OPÇÕES */
 .modo-opcoes {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 15px; padding: 20px;
 }
 
 .modo-card {
-  width: 480px;
-  height: 100px;
-  background-color: #2d1846;
-  border-radius: 18px;
-  border: none;
-  color: white;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0px;
-  cursor: pointer;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
-  transition: 0.3s;
+  width: 100%; max-width: 480px; height: 85px;
+  background-color: #2d1846; border-radius: 18px; border: none;
+  color: white; font-size: 1.1rem; font-weight: 600;
+  cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.modo-card:hover {
-  background-color: #3a235a;
-  transform: scale(1.03);
-}
-
-.modo-card span {
-  text-align: center;
-  margin-left: -5px;
-}
+.modo-card:hover { transform: scale(1.02); background: #3a235a; border: 1px solid #c644e0; }
