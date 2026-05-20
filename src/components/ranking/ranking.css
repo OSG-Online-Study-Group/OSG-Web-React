@@ -1,0 +1,111 @@
+.ranking-page {
+  background: #2a0c3a;
+  height: 100vh;
+  padding: 30px;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Navbar */
+
+.modo-header {
+  height: 100px;
+  background-color: #2d1846;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding: 20px 40px;
+  position: relative;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modo-header h1 {
+  text-align: center;
+  font-size: 28px;
+}
+
+.voltar {
+  position: absolute;
+  left: 30px;
+  top: 35px;
+  color: #C644E0;
+  cursor: pointer;
+}
+
+/* Title */
+
+.ranking-title {
+  text-align: center;
+  color: #b84cff;
+  margin-bottom: 40px;
+}
+
+/* Ranking */
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+}
+
+/* Crown */
+
+.crown {
+  position: absolute;
+  top: -47px;
+  left: -165px;
+  font-size: 40px;
+  z-index: 1;
+}
+
+/* Icon */
+
+.icon-box {
+  width: 70px;
+  height: 70px;
+  background: #4a2a63;
+  border: 3px solid #c44cff;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-right: -20px;
+  z-index: 2;
+}
+
+/* Bar */
+
+.ranking-bar {
+  width: 350px;
+  height: 60px;
+  border-radius: 40px;
+  background: linear-gradient(90deg, #8a2be2, #ff4fd8);
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.materia {
+  font-weight: bold;
+}
+
+.pts {
+  font-size: 12px;
+  opacity: 0.8;
+}

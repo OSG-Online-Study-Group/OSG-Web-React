@@ -1,0 +1,32 @@
+.modo-container {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(180deg, #1b0b2e, #2b0f45);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modo-header {
+  height: 100px;
+  background-color: #2d1846;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding: 20px 40px;
+  position: relative;
+}
+
+.modo-header h1 {
+  text-align: center;
+  font-size: 40px;
+}
+
+.voltar {
+  position: absolute;
+  left: 30px;
+  top: 35px;
+  color: #C644E0;
+  cursor: pointer;
+}
