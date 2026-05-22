@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "./Ranking.css";
+import "./ranking.css";
 
 export default function Ranking() {
   const navigate = useNavigate()
