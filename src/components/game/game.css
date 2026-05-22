@@ -14,7 +14,9 @@
   position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.modo-header h1 { font-size: 24px; text-align: center; }
+.modo-header h1 { font-size: 24px;
+   text-align: center;
+  margin-top: 66px}
 
 .voltar-btn {
   position: absolute; left: 25px; top: 50%;
