@@ -1,4 +1,4 @@
-import "./Chat.css";
+import "./chat.css";
 
 const friends = [
   { name: "Makauli", img: "https://i.pravatar.cc/40?img=1" },
