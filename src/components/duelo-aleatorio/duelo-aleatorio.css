@@ -4,9 +4,13 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow: hidden;
+}
+
 .duelo-container {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 
   background: #1a1033;
 
@@ -14,6 +18,7 @@
   flex-direction: column;
 
   justify-content: center;
+  align-items: center;
 
   padding: 30px;
 }
@@ -21,7 +26,11 @@
 /* HEADER */
 
 .duelo-header {
+  width: 100%;
+  max-width: 700px;
+
   display: flex;
+  margin-top: -190px;
 
   justify-content: space-between;
   align-items: center;
@@ -31,6 +40,9 @@
 
 .badge-materia {
   background: #7c3aed;
+
+  display: flex;
+  margin-left: 30px;
 
   padding: 12px 20px;
 
@@ -44,7 +56,8 @@
 
 .timer {
   color: white;
-
+  display: flex;
+  margin-right: 30px;
   font-size: 20px;
   font-weight: bold;
 }
@@ -54,8 +67,6 @@
 .duelo-content {
   width: 100%;
   max-width: 700px;
-
-  margin: 0 auto;
 }
 
 .pergunta {
@@ -94,7 +105,9 @@
 
   cursor: pointer;
 
-  transition: 0.2s;
+  transition:
+    transform 0.2s,
+    background 0.2s;
 }
 
 .alternativa:hover {
@@ -119,8 +132,8 @@
 
 .duelo-loading,
 .duelo-fim {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 
   background: #1a1033;
 
@@ -131,6 +144,10 @@
   align-items: center;
 
   color: white;
+
+  padding: 20px;
+
+  text-align: center;
 }
 
 .loader {
