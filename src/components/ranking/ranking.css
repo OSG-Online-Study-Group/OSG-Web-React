@@ -22,8 +22,8 @@
   border-bottom-right-radius: 35px;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* ← era center */
-  padding: 0 36px;                /* ← adicione padding lateral */
+  justify-content: space-between;
+  padding: 0 36px;   /* ← era 0 466px */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
@@ -43,6 +43,8 @@
   font-weight: 800;
   letter-spacing: 0.5px;
   text-shadow: 0 2px 12px rgba(200, 80, 255, 0.5);
+  text-align: center;
+  margin-left: 0px; 
 }
 
 .ranking-container {
