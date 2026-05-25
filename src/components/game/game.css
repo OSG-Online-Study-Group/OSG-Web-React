@@ -1,39 +1,83 @@
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
 
 .modo-container {
-  width: 100vw; height: 100vh;
+  width: 100vw;
+  height: 100vh;
   background: #1b0b2e;
-  color: white; display: flex; flex-direction: column;
+  color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .modo-header {
- height: 130px; /* Borda menor */
+  width: 100%;
+  height: 130px;
   background-color: #2d1846;
-  border-bottom-left-radius: 35px; border-bottom-right-radius: 35px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border-bottom-left-radius: 35px;
+  border-bottom-right-radius: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza o h1 horizontalmente */
+  position: relative; /* Essencial para o voltar-btn ficar absoluto */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.modo-header h1 { font-size: 24px;
-   text-align: center;
-  margin-top: 66px}
+.modo-header h1 {
+font-size: clamp(22px, 5vw, 30px);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 12px rgba(200, 80, 255, 0.5);
+    text-align: center;
+    margin-left: 590px;
+}
 
 .voltar-btn {
-  position: absolute; left: 25px; top: 50%;
-  transform: translateY(-50%); background: none; border: none;
-  color: #c644e0; font-size: 24px; cursor: pointer;
+  position: absolute;
+  left: 25px;
+  top: 50%; /* Estes dois comandos centralizam o ícone na vertical */
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #c644e0;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modo-opcoes {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 15px; padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
 }
 
 .modo-card {
-  width: 100%; max-width: 480px; height: 85px;
-  background-color: #2d1846; border-radius: 18px; border: none;
-  color: white; font-size: 1.1rem; font-weight: 600;
-  cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 480px;
+  height: 85px;
+  background-color: #2d1846;
+  border-radius: 18px;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.modo-card:hover { transform: scale(1.02); background: #3a235a; border: 1px solid #c644e0; }
+.modo-card:hover {
+  transform: scale(1.02);
+  background: #3a235a;
+  border: 1px solid #c644e0;
+}
