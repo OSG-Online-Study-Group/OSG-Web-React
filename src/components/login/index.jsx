@@ -1,34 +1,85 @@
-import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import "./login.css";
+
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../services/firebase";
+
 import Logo from "../../assets/image/logo_OSG.png";
 
-export function Login() {
+export default function Login() {
+
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  async function handleLogin(e) {
+
+    e.preventDefault();
+
+    if (!email || !senha) {
+      return alert("Preencha todos os campos.");
+    }
+
+    try {
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        senha
+      );
+
+      navigate("/Home");
+
+    } catch (error) {
+
+      alert(error.message);
+    }
+  }
 
   return (
     <div className="login-container">
+
       <div className="login-card">
 
         <div className="login-left">
-          <img src={Logo} alt="Online Study Group" />
-          <h2>Faça login!</h2>
+
+          <img
+            src={Logo}
+            alt="OSG"
+          />
+
+          <h2>
+            Online Study Group:
+            Aprenda, Pratique e Conquiste!
+          </h2>
+
         </div>
 
-        <div className="login-right">
+        <form
+          className="login-right"
+          onSubmit={handleLogin}
+        >
+
           <input
-            type="text"
-            placeholder="Gmail ou telefone"
+            type="email"
+            placeholder="Digite seu email"
+            value={email}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
           />
 
           <input
             type="password"
-            placeholder="Senha"
+            placeholder="Digite sua senha"
+            value={senha}
+            onChange={(e) =>
+              setSenha(e.target.value)
+            }
           />
-
-          <span className="forgot-password">
-            Esqueceu sua senha?
-          </span>
 
           <span
             className="register-link"
@@ -37,12 +88,17 @@ export function Login() {
             Não tem conta? Cadastre-se
           </span>
 
-          <button className="btn-entrar" onClick={() => navigate("/EscolhaMaterias")}>
+          <button
+            type="submit"
+            className="btn-entrar"
+          >
             Entrar
           </button>
-        </div>
+
+        </form>
 
       </div>
+
     </div>
   );
 }
