@@ -1,0 +1,191 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+}
+
+.duelo-container {
+  width: 100%;
+  min-height: 100vh;
+
+  background: #1a1033;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+}
+
+/* HEADER */
+
+.duelo-header {
+  width: 100%;
+  max-width: 700px;
+
+  display: flex;
+  margin-top: -190px;
+
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 40px;
+}
+
+.badge-materia {
+  background: #7c3aed;
+
+  display: flex;
+  margin-left: 30px;
+
+  padding: 12px 20px;
+
+  border-radius: 999px;
+
+  color: white;
+
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.timer {
+  color: white;
+  display: flex;
+  margin-right: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* CONTENT */
+
+.duelo-content {
+  width: 100%;
+  max-width: 700px;
+}
+
+.pergunta {
+  color: white;
+
+  font-size: 30px;
+  text-align: center;
+
+  margin-bottom: 30px;
+
+  line-height: 1.4;
+}
+
+/* ALTERNATIVAS */
+
+.alternativas {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+.alternativa {
+  width: 100%;
+
+  padding: 18px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: #2a1747;
+
+  color: white;
+
+  font-size: 17px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+.alternativa:hover {
+  transform: scale(1.01);
+
+  background: #3c2264;
+}
+
+.alternativa.selected {
+  background: #7c3aed;
+}
+
+.alternativa.correct {
+  background: #16a34a;
+}
+
+.alternativa.wrong {
+  background: #dc2626;
+}
+
+/* LOADING */
+
+.duelo-loading,
+.duelo-fim {
+  width: 100%;
+  min-height: 100vh;
+
+  background: #1a1033;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+
+  padding: 20px;
+
+  text-align: center;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+
+  border: 6px solid #ffffff30;
+  border-top: 6px solid #7c3aed;
+
+  border-radius: 50%;
+
+  animation: spin 1s linear infinite;
+
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* FIM */
+
+.duelo-fim h1 {
+  margin-bottom: 25px;
+
+  font-size: 36px;
+}
+
+.score {
+  font-size: 20px;
+
+  margin-top: 12px;
+}
+
+.duelo-fim span {
+  margin-top: 25px;
+
+  color: #cfcfcf;
+}

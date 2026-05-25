@@ -15,6 +15,7 @@ import Mensagem from "./components/mensagem";
 import Ranking from "./components/ranking";
 import RankingUser from "./components/rankingUser";
 import { DuelosPendentes } from "./components/duelos_pendentes";
+import  DueloAleatorio  from "./components/duelo-aleatorio";
 import Doacao from "./components/Mendigagem/doacao";
 import {Grupos} from "./components/grupos";
 
@@ -87,6 +88,8 @@ export default function App() {
             element={<RankingUser />}
           />
 
+          <Route path="/DueloAleatorio" element={<DueloAleatorio />} />
+          
           <Route path="/Doacao" element={<Doacao />} />
         
 
