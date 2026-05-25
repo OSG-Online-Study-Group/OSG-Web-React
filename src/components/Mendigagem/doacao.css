@@ -9,7 +9,8 @@
 /* ── Page ───────────────────────────────────────── */
 .doacao-page {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;        /* ← trava a altura na tela */
+  overflow-y: auto;     /* ← habilita o scroll */
   background: radial-gradient(ellipse at top, #3d1060 0%, #1a0630 55%, #0d021a 100%);
   color: white;
   font-family: 'DM Sans', system-ui, sans-serif;
@@ -18,7 +19,6 @@
   align-items: center;
   padding: 24px 20px 48px;
   gap: 28px;
-  overflow-y: auto;
 }
 
 /* ── Botão voltar quase invisível ───────────────── */
@@ -68,7 +68,6 @@
   padding: 28px 28px 24px;
   box-shadow: 0 8px 32px rgba(140, 30, 200, 0.35);
   position: relative;
-  overflow: hidden;
 }
 
 .doacao-hero::before {
