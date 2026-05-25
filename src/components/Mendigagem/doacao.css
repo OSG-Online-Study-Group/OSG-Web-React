@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Page ───────────────────────────────────────── */
+.doacao-page {
+  width: 100vw;
+  height: 100vh;        /* ← trava a altura na tela */
+  overflow-y: auto;     /* ← habilita o scroll */
+  background: radial-gradient(ellipse at top, #3d1060 0%, #1a0630 55%, #0d021a 100%);
+  color: white;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 20px 48px;
+  gap: 28px;
+}
+
+/* ── Botão voltar quase invisível ───────────────── */
+.doacao-back {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.18);
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  padding: 4px 0;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+}
+
+.doacao-back:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Logo ───────────────────────────────────────── */
+.doacao-logo-wrapper {
+  width: 90px;
+  height: 90px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(196, 68, 224, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 32px rgba(196, 68, 224, 0.2);
+}
+
+.doacao-logo {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+/* ── Hero ───────────────────────────────────────── */
+.doacao-hero {
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(135deg, #5c1a9e 0%, #8b1fc8 100%);
+  border-radius: 24px;
+  padding: 28px 28px 24px;
+  box-shadow: 0 8px 32px rgba(140, 30, 200, 0.35);
+  position: relative;
+}
+
+.doacao-hero::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 80, 220, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.doacao-hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.doacao-hero h1 span {
+  color: #ff80ea;
+}
+
+.doacao-hero p {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.85;
+  font-weight: 300;
+}
+
+/* ── Cards grid ─────────────────────────────────── */
+.doacao-cards {
+  width: 100%;
+  max-width: 480px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* ── Card base ──────────────────────────────────── */
+.doacao-card {
+  background: linear-gradient(145deg, #3a1268, #2a0c50);
+  border: 1.5px solid rgba(196, 68, 224, 0.3);
+  border-radius: 20px;
+  padding: 20px 12px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.doacao-card:hover {
+  border-color: rgba(214, 58, 205, 0.6);
+  box-shadow: 0 8px 28px rgba(196, 68, 224, 0.3);
+  transform: translateY(-2px);
+}
+
+.doacao-card.active {
+  border-color: #d63acd;
+  box-shadow: 0 0 0 2px rgba(214, 58, 205, 0.3), 0 8px 32px rgba(196, 68, 224, 0.4);
+  grid-column: span 3; /* expande para largura total quando aberto */
+}
+
+/* ── Card face (icon + label) ───────────────────── */
+.card-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-icon {
+  background: rgba(214, 58, 205, 0.15);
+  color: #e060d8;
+}
+
+.qr-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.pix-icon {
+  background: rgba(100, 80, 255, 0.15);
+  color: #a080ff;
+}
+
+.pix-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.coffee-icon {
+  background: #f5a623;
+  font-size: 26px;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-label {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+/* ── Coffee arrow ───────────────────────────────── */
+.coffee-arrow {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 14px;
+  opacity: 0.4;
+}
+
+/* ── Expand area ────────────────────────────────── */
+.card-expand {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+.card-expand.open {
+  max-height: 300px;
+  opacity: 1;
+  padding-top: 8px;
+}
+
+/* ── QR img ─────────────────────────────────────── */
+.qr-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 16px;
+  border: 2px solid rgba(214, 58, 205, 0.4);
+  box-shadow: 0 0 24px rgba(196, 68, 224, 0.2);
+}
+
+.expand-hint {
+  font-size: 12px;
+  opacity: 0.55;
+}
+
+/* ── Pix key ────────────────────────────────────── */
+.pix-key-box {
+  width: 100%;
+  max-width: 360px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(196, 68, 224, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.pix-key-text {
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  word-break: break-all;
+  opacity: 0.9;
+}
+
+.copy-btn {
+  background: linear-gradient(90deg, #7b22d4, #d63acd);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 28px;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.copy-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+.copy-btn.copied {
+  background: linear-gradient(90deg, #1a7a40, #26a857);
+}
+
+/* ── Message section ────────────────────────────── */
+.doacao-msg-section {
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(145deg, #3a1268, #2a0c50);
+  border: 1.5px solid rgba(196, 68, 224, 0.25);
+  border-radius: 24px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.msg-label {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.doacao-textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1.5px solid rgba(196, 68, 224, 0.2);
+  border-radius: 14px;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  padding: 14px 16px;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+  line-height: 1.5;
+}
+
+.doacao-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.doacao-textarea:focus {
+  border-color: rgba(214, 58, 205, 0.5);
+}
+
+.msg-send-btn {
+  align-self: flex-end;
+  background: linear-gradient(90deg, #7b22d4, #d63acd);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 24px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: filter 0.2s, transform 0.15s;
+}
+
+.msg-send-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+/* ── Footer ─────────────────────────────────────── */
+.doacao-footer {
+  font-size: 12px;
+  opacity: 0.25;
+  letter-spacing: 0.3px;
+}

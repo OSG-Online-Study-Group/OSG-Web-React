@@ -1,4 +1,3 @@
-
 /* RESET */
 * {
   margin: 0;
@@ -7,8 +6,7 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-html,
-body {
+html, body {
   width: 100%;
   height: 100%;
   background: #160428;
@@ -26,23 +24,22 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  
   border-radius: 20px;
+  background: #5c2d88;
 }
 
 /* LAYOUT */
 .app-layout {
   display: flex;
-  width: 80%;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
-  margin-left: 25px;
 }
 
 /* SIDEBAR */
 .sidebar {
-  width: 290px;
-  min-width: 200px;
+  width: 250px;
+  min-width: 250px;
   height: 100vh;
   background: #2a003c;
   display: flex;
@@ -96,7 +93,7 @@ body {
 /* MAIN */
 .main-area {
   flex: 1;
-  margin-left: 270px;
+  margin-left: 250px;
   height: 100vh;
   background: #22063b;
   display: flex;
@@ -111,17 +108,18 @@ body {
   background: #34104f;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;   /* centraliza o search */
+  gap: 16px;
   padding: 0 40px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
 }
 
 /* SEARCH */
 .search-box {
-  width: 700px;
+  width: 500px;
   height: 44px;
   position: relative;
-  margin-left: 450px;
 }
 
 .search-box input {
@@ -149,36 +147,32 @@ body {
   filter: invert(1);
 }
 
-/* USER */
-.user-controls {
+/* BOTÃO CONTROLLER */
+.controller-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(196, 68, 224, 0.35);
+  border-radius: 14px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
-  gap: 25px;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  margin-left: 105px
 }
 
-.topbar-game-icon {
-  width: 25px;
+.controller-btn:hover {
+  background: rgba(196, 68, 224, 0.2);
+  border-color: #c444e0;
+  transform: translateY(-1px);
+}
+
+.controller-icon {
+  width: 22px;
+  height: 22px;
   filter: brightness(0) invert(1);
-  margin-left: 300px;
-}
-
-.profile-dropdown {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.topbar-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 2px solid #c267ff;
-  object-fit: cover;
-}
-
-.topbar-arrow {
-  width: 12px;
-  filter: invert(1);
 }
 
 /* SCROLL PRINCIPAL */
@@ -197,7 +191,6 @@ body {
   position: relative;
   overflow: hidden;
   margin-bottom: 40px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,11 +216,6 @@ body {
 .banner-content p {
   font-size: 20px;
   margin-bottom: 20px;
-}
-
-.banner-img {
-  width: 240px;
-  object-fit: contain;
 }
 
 /* EFEITOS */
@@ -321,7 +309,7 @@ body {
   border-radius: 50%;
   background: #22063b;
   padding: 6px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   margin-bottom: 20px;
 }
 
@@ -351,22 +339,18 @@ body {
 .stat-box {
   min-height: 180px;
   border-radius: 24px;
-  background: #442164;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-
   border: 2px solid transparent;
   background-image:
     linear-gradient(#442164, #442164),
     linear-gradient(135deg, #00e1ff, #d54dff);
-
   background-origin: border-box;
   background-clip: padding-box, border-box;
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .stat-box p {
@@ -390,7 +374,6 @@ body {
   .stats-grid {
     grid-template-columns: 1fr;
   }
-
   .banner-content h2 {
     font-size: 42px;
   }
@@ -401,33 +384,25 @@ body {
     width: 95px;
     min-width: 95px;
   }
-
   .sidebar-logo {
     font-size: 26px;
-    margin-left: 20px;
   }
-
   .nav-item span {
     display: none;
   }
-
   .nav-item {
     justify-content: center;
     padding: 0;
   }
-
   .main-area {
     margin-left: 95px;
   }
-
   .topbar {
     padding: 0 20px;
   }
-
   .search-box {
     width: 230px;
   }
-
   .banner-content h2 {
     font-size: 32px;
   }
@@ -440,46 +415,21 @@ body {
     gap: 15px;
     padding: 20px;
   }
-
   .search-box {
     width: 100%;
   }
-
   .content-scroll {
     padding: 20px;
   }
-
   .welcome-banner {
     min-height: 220px;
     padding: 20px;
   }
-
-  .banner-content h2 {
-    font-size: 26px;
-  }
-
-  .banner-content h4 {
-    font-size: 18px;
-  }
-
-  .banner-content p {
-    font-size: 15px;
-  }
-
-  .card-cover {
-    height: 200px;
-  }
-
-  .avatar-wrapper {
-    width: 120px;
-    height: 120px;
-  }
-
-  .user-name-title {
-    font-size: 28px;
-  }
-
-  .stats-grid {
-    padding: 0 20px;
-  }
+  .banner-content h2 { font-size: 26px; }
+  .banner-content h4 { font-size: 18px; }
+  .banner-content p  { font-size: 15px; }
+  .card-cover        { height: 200px; }
+  .avatar-wrapper    { width: 120px; height: 120px; }
+  .user-name-title   { font-size: 28px; }
+  .stats-grid        { padding: 0 20px; }
 }
