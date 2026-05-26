@@ -1,17 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./chat.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const CURRENT_USER = {
   id: 1,
   name: "Você",
-  avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=voce&backgroundColor=6d28d9",
 };
 
 const OTHER_USER = {
   id: 2,
-  name: "Rival",
-  avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=rival&backgroundColor=c026d3",
+  name: "Rivaldo",
 };
 
 const initialMessages = [
@@ -38,15 +36,21 @@ function getNow() {
 
 export default function Chat() {
   const navigate = useNavigate();
-  const [messages, setMessages] = useState(initialMessages);
-  const [input, setInput] = useState("");
+  // ✅ Lê o nome e ícone do grupo passados pela tela de Grupos
+  const location = useLocation();
+  const nomeGrupo  = location.state?.nomeGrupo  ?? "Grupo";
+  const iconeGrupo = location.state?.iconeGrupo ?? "💬";
+
+  const [messages, setMessages]       = useState(initialMessages);
+  const [input, setInput]             = useState("");
   const [attachPreview, setAttachPreview] = useState(null);
-  const [attachType, setAttachType] = useState(null);
-  const [attachName, setAttachName] = useState("");
+  const [attachType, setAttachType]   = useState(null);
+  const [attachName, setAttachName]   = useState("");
   const [showAttachMenu, setShowAttachMenu] = useState(false);
-  const fileInputRef = useRef(null);
+
+  const fileInputRef  = useRef(null);
   const imageInputRef = useRef(null);
-  const bottomRef = useRef(null);
+  const bottomRef     = useRef(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -110,36 +114,38 @@ export default function Chat() {
 
   return (
     <div className="chat-container">
-      {/* Header */}
+      {/* ── Header ── */}
       <header className="chat-header">
         <button className="voltar-btn" onClick={() => navigate(-1)}>❮</button>
         <div className="chat-header-info">
-          <img
-            src={OTHER_USER.avatar}
-            alt={OTHER_USER.name}
-            className="chat-header-avatar"
-          />
+          {/* ✅ Exibe o ícone + nome do grupo vindo do estado de navegação */}
+          <span className="chat-header-icone">{iconeGrupo}</span>
           <div>
-            <span className="chat-header-name">Grupo</span>
-            <span className="chat-header-status"></span>
+            <span className="chat-header-name">{nomeGrupo}</span>
+            <span className="chat-header-status">online</span>
           </div>
         </div>
       </header>
 
-      {/* Messages */}
+      {/* ── Mensagens ── */}
       <main className="chat-messages">
         {messages.map((msg) => {
           const isMe = msg.user.id === CURRENT_USER.id;
           return (
             <div key={msg.id} className={`chat-msg-row ${isMe ? "me" : "other"}`}>
-              {!isMe && (
-                <img src={msg.user.avatar} alt={msg.user.name} className="chat-avatar" />
-              )}
+              {/* ✅ Sem avatar — apenas o wrapper da bolha */}
               <div className="chat-bubble-wrap">
-                {!isMe && <span className="chat-username">{msg.user.name}</span>}
+                {/* Nome visível apenas para mensagens de outros usuários */}
+                {!isMe && (
+                  <span className="chat-username">{msg.user.name}</span>
+                )}
                 <div className={`chat-bubble ${isMe ? "bubble-me" : "bubble-other"}`}>
                   {msg.type === "image" && msg.attachment && (
-                    <img src={msg.attachment} alt="imagem" className="chat-img-preview" />
+                    <img
+                      src={msg.attachment}
+                      alt="imagem"
+                      className="chat-img-preview"
+                    />
                   )}
                   {msg.type === "file" && (
                     <div className="chat-file">
@@ -151,16 +157,13 @@ export default function Chat() {
                   <span className="chat-time">{msg.time}</span>
                 </div>
               </div>
-              {isMe && (
-                <img src={msg.user.avatar} alt={msg.user.name} className="chat-avatar" />
-              )}
             </div>
           );
         })}
         <div ref={bottomRef} />
       </main>
 
-      {/* Attach preview bar */}
+      {/* ── Barra de preview de anexo ── */}
       {attachPreview && (
         <div className="attach-preview-bar">
           {attachType === "image" ? (
@@ -172,7 +175,7 @@ export default function Chat() {
         </div>
       )}
 
-      {/* Input */}
+      {/* ── Input ── */}
       <footer className="chat-footer">
         <div className="attach-wrapper">
           <button
