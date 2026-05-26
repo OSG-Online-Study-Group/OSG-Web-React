@@ -16,7 +16,7 @@ export function Game() {
         <button className="modo-card" onClick={() => navigate("/quiz-diario")}>
           <span>💡 Quiz diário</span>
         </button>
-        <button className="modo-card" onClick={() => navigate("/duelo-aleatorio")}>
+        <button className="modo-card" onClick={() => navigate("/dueloAleatorio")}>
           <span>⚔️ Duelo Aleatório</span>
         </button>
         <button className="modo-card" onClick={() => navigate("/ConviteDuelo")}>
