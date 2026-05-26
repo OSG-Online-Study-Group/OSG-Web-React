@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./profile.css";
-import UserImg from "../../assets/image/user.png"; // ajuste o caminho
-import Banner from "../../assets/image/cover.png"; // ajuste o caminho
+import UserImg from "../../assets/image/user.png";
+import Banner from "../../assets/image/cover.png";
 
 const badges = [
   { id: 1, emoji: "🟡", label: "Ouro" },
@@ -12,7 +12,7 @@ const badges = [
 ];
 
 const menuItems = [
-  { icon: "💬", label: "Mensagem",     action: "mensagem" },
+  { icon: "💬", label: "Mensagem", action: "mensagem" },
   { icon: "✏️", label: "Editar Perfil", action: "editar" },
   { icon: "⚙️", label: "Configurações", action: "config" },
 ];
@@ -21,8 +21,22 @@ export default function Profile() {
   const navigate = useNavigate();
 
   const handleMenu = (action) => {
-    if (action === "editar") navigate("/EditarPerfil");
-    if (action === "config") navigate("/Configuracoes");
+    switch (action) {
+      case "mensagem":
+        navigate("/Mensagens");
+        break;
+
+      case "editar":
+        navigate("/EditarPerfil");
+        break;
+
+      case "config":
+        navigate("/Configuracoes");
+        break;
+
+      default:
+        break;
+    }
   };
 
   const handleLogout = () => {
@@ -32,19 +46,28 @@ export default function Profile() {
 
   return (
     <div className="profile-page">
-
       {/* Coluna central */}
       <div className="profile-column">
 
         {/* Banner */}
         <div className="profile-banner">
           <img src={Banner} alt="banner" className="banner-img" />
-          <button className="profile-back" onClick={() => navigate(-1)}>←</button>
+
+          <button
+            className="profile-back"
+            onClick={() => navigate(-1)}
+          >
+            ←
+          </button>
         </div>
 
         {/* Avatar sobreposto */}
         <div className="profile-avatar-wrap">
-          <img src={UserImg} alt="avatar" className="profile-avatar" />
+          <img
+            src={UserImg}
+            alt="avatar"
+            className="profile-avatar"
+          />
         </div>
 
         {/* Nome */}
@@ -62,12 +85,16 @@ export default function Profile() {
               <span className="stat-value">8</span>
               <span className="stat-label">Grupos</span>
             </div>
+
             <div className="stat-divider" />
+
             <div className="stat-item">
               <span className="stat-value">1472</span>
               <span className="stat-label">XP</span>
             </div>
+
             <div className="stat-divider" />
+
             <div className="stat-item">
               <span className="stat-value">5</span>
               <span className="stat-label">Expert</span>
@@ -77,9 +104,14 @@ export default function Profile() {
           {/* Conquistas */}
           <div className="conquistas-section">
             <h2 className="conquistas-title">Conquistas</h2>
+
             <div className="badges-row">
               {badges.map((b) => (
-                <div className="badge-item" key={b.id} title={b.label}>
+                <div
+                  className="badge-item"
+                  key={b.id}
+                  title={b.label}
+                >
                   <span className="badge-emoji">{b.emoji}</span>
                 </div>
               ))}
@@ -87,11 +119,15 @@ export default function Profile() {
           </div>
 
           {/* Apoie os Devs */}
-          <div className="apoie-card" onClick={() => navigate("/Doacao")}>
+          <div
+            className="apoie-card"
+            onClick={() => navigate("/Doacao")}
+          >
             <div className="apoie-text">
               <strong>Apoie os Devs</strong>
               <span>Pague um café e ajude o app a crescer</span>
             </div>
+
             <span className="apoie-heart">♥</span>
           </div>
 
@@ -113,15 +149,18 @@ export default function Profile() {
             <div className="menu-divider" />
 
             {/* Logout */}
-            <button className="menu-item logout-item" onClick={handleLogout}>
+            <button
+              className="menu-item logout-item"
+              onClick={handleLogout}
+            >
               <span className="menu-icon">🚪</span>
               <span className="menu-label">Sair da conta</span>
               <span className="menu-arrow">›</span>
             </button>
           </div>
-
         </div>
       </div>
     </div>
   );
 }
+
