@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { Abertura } from "./components/abertura";
@@ -9,15 +10,25 @@ import { Game } from "./components/game";
 import { Home } from "./components/home";
 import Login from "./components/login";
 import { Treino } from "./components/treino";
+
 import Profile from "./components/profile";
 import Mensagem from "./components/mensagem";
+
 import Ranking from "./components/ranking";
 import RankingUser from "./components/rankingUser";
+
 import { DuelosPendentes } from "./components/duelos_pendentes";
+
 import DueloAleatorio from "./components/duelo-aleatorio";
+
 import Doacao from "./components/Mendigagem/doacao";
+
 import { Grupos } from "./components/grupos";
+
 import Chat from "./components/chat/chat";
+
+/* IMPORT CORRIGIDO */
+import EditarPerfil from "./components/Editar_Perfil/EditarPerfil";
 
 export default function App() {
   return (
@@ -33,25 +44,35 @@ export default function App() {
           <Route path="/Cadastro" element={<Cadastro />} />
 
           {/* Escolha de matérias */}
-          <Route path="/EscolhaMaterias" element={<EscolhaMaterias />} />
+          <Route
+            path="/EscolhaMaterias"
+            element={<EscolhaMaterias />}
+          />
 
           {/* Home */}
           <Route path="/Home" element={<Home />} />
 
-          {/* Grupos — lista de grupos */}
+          {/* Grupos */}
           <Route path="/Grupos" element={<Grupos />} />
 
-          {/* ✅ Chat dinâmico: cada grupo abre seu próprio chat.
-              O parâmetro :grupo recebe os valores definidos em Grupos.jsx:
-              matematica | ciencias | linguagens | humanas | informatica   */}
+          {/* Chat dinâmico */}
           <Route path="/chat/:grupo" element={<Chat />} />
 
           {/* Duelos */}
-          <Route path="/DuelosPendentes" element={<DuelosPendentes />} />
-          <Route path="/ConviteDuelo" element={<ConviteDuelo />} />
+          <Route
+            path="/DuelosPendentes"
+            element={<DuelosPendentes />}
+          />
 
-          {/* Grupos específicos (mantidos caso ainda sejam usados) */}
-        
+          <Route
+            path="/ConviteDuelo"
+            element={<ConviteDuelo />}
+          />
+
+          <Route
+            path="/DueloAleatorio"
+            element={<DueloAleatorio />}
+          />
 
           {/* Game */}
           <Route path="/Game" element={<Game />} />
@@ -62,15 +83,24 @@ export default function App() {
           {/* Perfil */}
           <Route path="/Profile" element={<Profile />} />
 
+          {/* Editar Perfil */}
+          <Route
+            path="/EditarPerfil"
+            element={<EditarPerfil />}
+          />
+
           {/* Mensagens */}
           <Route path="/Mensagem" element={<Mensagem />} />
 
           {/* Ranking */}
           <Route path="/Ranking" element={<Ranking />} />
-          <Route path="/RankingUser" element={<RankingUser />} />
 
-          <Route path="/DueloAleatorio" element={<DueloAleatorio />} />
+          <Route
+            path="/RankingUser"
+            element={<RankingUser />}
+          />
 
+          {/* Doação */}
           <Route path="/Doacao" element={<Doacao />} />
 
         </Routes>
@@ -78,3 +108,4 @@ export default function App() {
     </div>
   );
 }
+
