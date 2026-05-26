@@ -21,7 +21,7 @@ export function Grupos() {
 
       <main className="grupos-lista">
         {listaGrupos.map((grupo, idx) => (
-          <button key={idx} className="grupo-card" onClick={() => navigate(grupo.path)}>
+          <button key={idx} className="grupo-card" onClick={() => navigate(grupo.path)} onClick={() => navigate("/Chat")}>
             <span className="grupo-icone">{grupo.icone}</span>
             <span className="grupo-nome">{grupo.nome}</span>
           </button>

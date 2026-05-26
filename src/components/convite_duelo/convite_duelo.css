@@ -55,6 +55,7 @@
   transition: background 0.2s, transform 0.15s;
   flex-shrink: 0;
   z-index: 1;
+  margin-right: 550px;
 }
 
 .duelo-back:hover {
@@ -65,6 +66,7 @@
 .duelo-header-center {
   text-align: center;
   z-index: 1;
+  margin-right: 500px;
 }
 
 .duelo-header-center h1 {
@@ -101,7 +103,7 @@
 /* ── Section ────────────────────────────────────── */
 .duelo-section {
   width: 100%;
-  max-width: 600px;
+  max-width: 1400px;
   display: flex;
   flex-direction: column;
   gap: 16px;

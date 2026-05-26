@@ -49,7 +49,7 @@ export function ConviteDuelo() {
       <header className="duelo-header">
         <button className="duelo-back" onClick={() => navigate(-1)}>←</button>
         <div className="duelo-header-center">
-          <h1>Duelo <span>Amigos</span></h1>
+          <h1>Duelo Amigos</h1>
           <p>Desafie amigos e suba no ranking</p>
         </div>
         <div className="duelo-header-spacer" />

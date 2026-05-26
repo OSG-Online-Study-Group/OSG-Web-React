@@ -17,6 +17,7 @@ import RankingUser from "./components/rankingUser";
 import { DuelosPendentes } from "./components/duelos_pendentes";
 import Doacao from "./components/Mendigagem/doacao";
 import {Grupos} from "./components/grupos";
+import Chat from "./components/chat/chat";
 
 export default function App() {
   return (
@@ -88,8 +89,9 @@ export default function App() {
           />
 
           <Route path="/Doacao" element={<Doacao />} />
-        
 
+          <Route path="/Chat" element={<Chat />} />
+        
         </Routes>
 
       </Router>
