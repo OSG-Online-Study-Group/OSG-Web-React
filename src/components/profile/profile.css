@@ -315,3 +315,35 @@
 .logout-item .menu-arrow {
   color: #ff6b6b;
 }
+/* ── Tela Temporária Devs ───────────────────────── */
+.dev-message-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #6a0dad; /* Roxa */
+  background: radial-gradient(circle at center, #420759 0%, #4a1090 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  animation: fade-in-out 3.5s ease-in-out forwards;
+}
+
+.dev-message-overlay p {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.4;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fade-in-out {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
