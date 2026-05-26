@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./profile.css";
 import UserImg from "../../assets/image/user.png";
@@ -19,11 +20,13 @@ const menuItems = [
 
 export default function Profile() {
   const navigate = useNavigate();
+  const [showDevMessage, setShowDevMessage] = useState(false);
 
   const handleMenu = (action) => {
     switch (action) {
       case "mensagem":
-        navigate("/Mensagens");
+        setShowDevMessage(true);
+        setTimeout(() => setShowDevMessage(false), 3500); // Oculta após 3.5 segundos
         break;
 
       case "editar":
@@ -48,7 +51,6 @@ export default function Profile() {
     <div className="profile-page">
       {/* Coluna central */}
       <div className="profile-column">
-
         {/* Banner */}
         <div className="profile-banner">
           <img src={Banner} alt="banner" className="banner-img" />
@@ -160,7 +162,14 @@ export default function Profile() {
           </div>
         </div>
       </div>
+
+      {/* Tela Roxa Temporária */}
+      {showDevMessage && (
+        <div className="dev-message-overlay">
+          <p>Os devs Ainda estão trabalhando nisso,<br />
+           aguarde a season 2 da OSG</p>
+        </div>
+      )}
     </div>
   );
 }
-
