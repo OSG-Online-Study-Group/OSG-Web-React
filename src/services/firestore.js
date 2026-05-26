@@ -33,10 +33,10 @@ export function getTituloLevel(level) {
     1: "Iniciante",
     2: "Estudante",
     3: "Dedicado",
-    4: "Avancado",
+    4: "Avançado",
     5: "Expert",
     6: "Mestre",
-    7: "Lendario",
+    7: "Lendário",
   }[level] || "Iniciante";
 }
 
