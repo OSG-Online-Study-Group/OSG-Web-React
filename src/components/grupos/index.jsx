@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 export function Grupos() {
   const navigate = useNavigate();
+
   const listaGrupos = [
-    { nome: "Matemática", icone: "📐", path: "/matematica" },
-    { nome: "Ciências da Natureza", icone: "🧪", path: "/ciencias" },
-    { nome: "Linguagens", icone: "📚", path: "/linguagens" },
-    { nome: "Ciências Humanas", icone: "🌍", path: "/humanas" },
-    { nome: "Informática", icone: "💻", path: "/informatica" },
+    { nome: "Matemática",          icone: "📐", path: "/chat/matematica"  },
+    { nome: "Ciências da Natureza", icone: "🧪", path: "/chat/ciencias"   },
+    { nome: "Linguagens",           icone: "📚", path: "/chat/linguagens" },
+    { nome: "Ciências Humanas",     icone: "🌍", path: "/chat/humanas"    },
+    { nome: "Informática",          icone: "💻", path: "/chat/informatica"},
   ];
 
   return (
@@ -21,7 +22,17 @@ export function Grupos() {
 
       <main className="grupos-lista">
         {listaGrupos.map((grupo, idx) => (
-          <button key={idx} className="grupo-card" onClick={() => navigate(grupo.path)} onClick={() => navigate("/Chat")}>
+          <button
+            key={idx}
+            className="grupo-card"
+            /* ✅ Um único onClick: navega para o path do grupo
+               e passa o nome/ícone via state para o Chat usar */
+            onClick={() =>
+              navigate(grupo.path, {
+                state: { nomeGrupo: grupo.nome, iconeGrupo: grupo.icone },
+              })
+            }
+          >
             <span className="grupo-icone">{grupo.icone}</span>
             <span className="grupo-nome">{grupo.nome}</span>
           </button>
