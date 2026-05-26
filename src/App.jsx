@@ -5,8 +5,7 @@ import Cadastro from "./components/cadastro";
 import { ConviteDuelo } from "./components/convite_duelo";
 import EscolhaMaterias from "./components/escolha_materias";
 import { Game } from "./components/game";
-import { GrupoEconomia } from "./components/grupo_economia";
-import { GrupoQuimica } from "./components/grupo_quimica";
+
 import { Home } from "./components/home";
 import Login from "./components/login";
 import { Treino } from "./components/treino";
@@ -15,17 +14,15 @@ import Mensagem from "./components/mensagem";
 import Ranking from "./components/ranking";
 import RankingUser from "./components/rankingUser";
 import { DuelosPendentes } from "./components/duelos_pendentes";
-import  DueloAleatorio  from "./components/duelo-aleatorio";
+import DueloAleatorio from "./components/duelo-aleatorio";
 import Doacao from "./components/Mendigagem/doacao";
-import {Grupos} from "./components/grupos";
+import { Grupos } from "./components/grupos";
 import Chat from "./components/chat/chat";
 
 export default function App() {
   return (
     <div className="container-app">
-
       <Router basename="/OSG-Web-React">
-
         <Routes>
 
           {/* Tela inicial */}
@@ -36,38 +33,25 @@ export default function App() {
           <Route path="/Cadastro" element={<Cadastro />} />
 
           {/* Escolha de matérias */}
-          <Route
-            path="/EscolhaMaterias"
-            element={<EscolhaMaterias />}
-          />
+          <Route path="/EscolhaMaterias" element={<EscolhaMaterias />} />
 
           {/* Home */}
           <Route path="/Home" element={<Home />} />
 
-             {/* grupos */}
+          {/* Grupos — lista de grupos */}
           <Route path="/Grupos" element={<Grupos />} />
 
+          {/* ✅ Chat dinâmico: cada grupo abre seu próprio chat.
+              O parâmetro :grupo recebe os valores definidos em Grupos.jsx:
+              matematica | ciencias | linguagens | humanas | informatica   */}
+          <Route path="/chat/:grupo" element={<Chat />} />
+
           {/* Duelos */}
-          <Route
-            path="/DuelosPendentes"
-            element={<DuelosPendentes />}
-          />
+          <Route path="/DuelosPendentes" element={<DuelosPendentes />} />
+          <Route path="/ConviteDuelo" element={<ConviteDuelo />} />
 
-          <Route
-            path="/ConviteDuelo"
-            element={<ConviteDuelo />}
-          />
-
-          {/* Grupos */}
-          <Route
-            path="/GrupoQuimica"
-            element={<GrupoQuimica />}
-          />
-
-          <Route
-            path="/GrupoEconomia"
-            element={<GrupoEconomia />}
-          />
+          {/* Grupos específicos (mantidos caso ainda sejam usados) */}
+        
 
           {/* Game */}
           <Route path="/Game" element={<Game />} />
@@ -83,22 +67,14 @@ export default function App() {
 
           {/* Ranking */}
           <Route path="/Ranking" element={<Ranking />} />
-
-          <Route
-            path="/RankingUser"
-            element={<RankingUser />}
-          />
+          <Route path="/RankingUser" element={<RankingUser />} />
 
           <Route path="/DueloAleatorio" element={<DueloAleatorio />} />
-          
+
           <Route path="/Doacao" element={<Doacao />} />
 
-          <Route path="/Chat" element={<Chat />} />
-        
         </Routes>
-
       </Router>
-
     </div>
   );
 }
