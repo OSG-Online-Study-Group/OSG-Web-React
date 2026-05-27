@@ -17,11 +17,13 @@ export default function SelecionarMaterias() {
   const [erro, setErro] = useState("");
 
   function toggleGrupo(groupId) {
-    setSelecionados((prev) =>
-      prev.includes(groupId)
-        ? prev.filter((id) => id !== groupId)
-        : [...prev, groupId]
-    );
+    setSelecionados((prev) => {
+      if (prev.includes(groupId)) {
+        return prev.filter((id) => id !== groupId);
+      }
+
+      return [...prev, groupId];
+    });
 
     setErro("");
   }
@@ -38,12 +40,12 @@ export default function SelecionarMaterias() {
       const gruposFinal = [
         ...new Set([
           ...(usuario?.groupIds || []),
-          ...selecionados
-        ])
+          ...selecionados,
+        ]),
       ];
 
       refreshUsuario({
-        groupIds: gruposFinal
+        groupIds: gruposFinal,
       });
 
       await entrarNosGrupos(
@@ -51,7 +53,7 @@ export default function SelecionarMaterias() {
         selecionados
       );
 
-      navigate("/grupos");
+      navigate("/home");
 
     } catch (error) {
       console.error(error);
@@ -76,30 +78,28 @@ export default function SelecionarMaterias() {
       <div className="grupos-lista">
 
         {GROUPS.map((grupo) => {
-          const selected = selecionados.includes(grupo.id);
+          const selecionado =
+            selecionados.includes(grupo.id);
 
           return (
-            <div
+            <button
               key={grupo.id}
-              className={`grupo-card ${selected ? "selected" : ""}`}
+              type="button"
               onClick={() => toggleGrupo(grupo.id)}
+              className={`grupo-card ${
+                selecionado ? "ativo" : ""
+              }`}
             >
-
-              <span className="grupo-emoji">
-                {grupo.emoji}
-              </span>
-
               <span className="grupo-nome">
                 {grupo.name}
               </span>
 
-              {selected && (
+              {selecionado && (
                 <span className="check-icon">
                   ✓
                 </span>
               )}
-
-            </div>
+            </button>
           );
         })}
 
@@ -118,7 +118,7 @@ export default function SelecionarMaterias() {
       >
         {carregando
           ? "Carregando..."
-          : "Confirmar e Entrar →"}
+          : "Confirmar"}
       </button>
 
     </div>
