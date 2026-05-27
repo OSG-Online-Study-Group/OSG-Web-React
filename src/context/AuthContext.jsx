@@ -1,81 +1,74 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth, db } from "../../services/firebase";
+import { useEffect, useMemo, useState } from "react";
+import {
+  browserLocalPersistence,
+  onAuthStateChanged,
+  setPersistence,
+  signOut,
+} from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
-
-const AuthContext = createContext({});
+import { auth, db } from "../services/firebase";
+import { AuthContext } from "./auth-context";
 
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(null);
   const [firebaseUser, setFirebaseUser] = useState(null);
   const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState("");
 
   useEffect(() => {
-    let unsubscribeSnapshot = null;
+    let unsubscribeSnapshot;
+    let active = true;
+
+    setPersistence(auth, browserLocalPersistence).catch(() => {
+      if (active) setErro("Não foi possível persistir sua sessão.");
+    });
 
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setFirebaseUser(user);
+      unsubscribeSnapshot?.();
+      setFirebaseUser(user);
+      setErro("");
 
-        const userRef = doc(db, "users", user.uid);
-
-        unsubscribeSnapshot = onSnapshot(userRef, (snap) => {
-          if (snap.exists()) {
-            setUsuario((prev) => ({
-              ...prev,          // 🔥 mantém update local
-              ...snap.data(),   // 🔥 sobrescreve com firestore
-              uid: user.uid,
-            }));
-          } else {
-            setUsuario(null);
-          }
-          setCarregando(false);
-        });
-
-      } else {
-        setFirebaseUser(null);
+      if (!user) {
         setUsuario(null);
         setCarregando(false);
-
-        if (unsubscribeSnapshot) unsubscribeSnapshot();
+        return;
       }
+
+      setCarregando(true);
+      unsubscribeSnapshot = onSnapshot(
+        doc(db, "users", user.uid),
+        (snapshot) => {
+          setUsuario(snapshot.exists() ? { uid: user.uid, ...snapshot.data() } : null);
+          setCarregando(false);
+        },
+        () => {
+          setErro("Não foi possível carregar seu perfil.");
+          setCarregando(false);
+        },
+      );
     });
 
     return () => {
+      active = false;
       unsubscribeAuth();
-      if (unsubscribeSnapshot) unsubscribeSnapshot();
+      unsubscribeSnapshot?.();
     };
   }, []);
 
   async function logout() {
     await signOut(auth);
-    setUsuario(null);
-    setFirebaseUser(null);
   }
 
-  // 🔥 IMPORTANTE: optimistic update
   function refreshUsuario(novosDados) {
-    setUsuario((prev) => ({
-      ...prev,
-      ...novosDados,
-    }));
+    setUsuario((previous) => (previous ? { ...previous, ...novosDados } : previous));
   }
+
+  const value = useMemo(
+    () => ({ usuario, firebaseUser, carregando, erro, logout, refreshUsuario }),
+    [usuario, firebaseUser, carregando, erro],
+  );
 
   return (
-    <AuthContext.Provider
-      value={{
-        usuario,
-        firebaseUser,
-        carregando,
-        logout,
-        refreshUsuario,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
 }

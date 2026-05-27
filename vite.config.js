@@ -5,4 +5,15 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: "/OSG-Web-React/",
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+          vendor: ['react', 'react-dom', 'react-router-dom', 'styled-components'],
+          socket: ['socket.io-client'],
+        },
+      },
+    },
+  },
 })

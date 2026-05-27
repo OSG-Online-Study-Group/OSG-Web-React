@@ -1,16 +1,33 @@
-# React + Vite
+# OSG Web - Online Study Group
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend web em React + Vite para o aplicativo OSG. A web utiliza o mesmo Firebase Auth/Firestore do app mobile, Cloudinary para avatar, OpenRouter para quizzes e Socket.io para duelo aleatorio.
 
-Currently, two official plugins are available:
+## Ambiente
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Instale dependencias com `npm install`.
+2. Crie `.env` a partir de `.env.example`.
+3. Configure as variaveis `VITE_FIREBASE_*`, `VITE_OPENROUTER_API_KEY`, `VITE_CLOUDINARY_*` e `VITE_SOCKET_URL`.
+4. Inicie com `npm run dev`.
 
-## React Compiler
+O upload Cloudinary requer um upload preset unsigned existente. A chave OpenRouter e exposta no bundle web conforme a arquitetura sem backend adicional definida para este projeto.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Verificacao
 
-## Expanding the ESLint configuration
+```bash
+npm run lint
+npm run build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Deploy
+
+O deploy automatico permanece no GitHub Pages pelo workflow em `.github/workflows/deploy.yml`. Cadastre todas as variaveis Vite como secrets do repositorio antes da publicacao.
+
+## Git Flow
+
+- `main`: versoes publicadas.
+- `develop`: integracao de entregas aprovadas.
+- `feature/*`: funcionalidades.
+- `fix/*`: correcoes.
+- `release/*`: preparacao de versoes.
+
+As funcionalidades devem chegar a `develop` via pull request e seguir para `main` somente apos validacao da release.

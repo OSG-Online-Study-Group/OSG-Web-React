@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      var segmentCount = 1;
+      var locationValue = window.location;
+      var repositoryBase = locationValue.pathname
+        .split("/")
+        .slice(0, segmentCount + 1)
+        .join("/");
+      var route = locationValue.pathname
+        .slice(1)
+        .split("/")
+        .slice(segmentCount)
+        .join("/");
+      locationValue.replace(
+        locationValue.protocol +
+          "//" +
+          locationValue.host +
+          repositoryBase +
+          "/?/" +
+          route +
+          (locationValue.search ? "&" + locationValue.search.slice(1) : "") +
+          locationValue.hash,
+      );
+    </script>
+  </head>
+  <body></body>
+</html>

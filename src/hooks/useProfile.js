@@ -1,104 +1,64 @@
-import { useState, useEffect } from "react";
-import * as ImagePicker from "expo-image-picker";
-import { Alert } from "react-native";
+import { useEffect, useState } from "react";
+import { uploadImagem } from "../services/cloudinary";
 import { atualizarPerfil } from "../services/firestore";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "./useAuth";
 
-export function useProfile(usuario) {
-    const { refreshUsuario } = useAuth();
+export function useProfile() {
+  const { usuario, firebaseUser, refreshUsuario } = useAuth();
+  const [foto, setFoto] = useState(null);
+  const [theme, setTheme] = useState(null);
+  const [nome, setNome] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
-    const [foto, setFoto] = useState(null);
-    const [theme, setTheme] = useState(null);
-    const [nome, setNome] = useState("");
+  useEffect(() => {
+    setFoto(usuario?.photo || null);
+    setTheme(usuario?.theme || null);
+    setNome(usuario?.name || "");
+  }, [usuario]);
 
-    // sincroniza com usuário
-    useEffect(() => {
-        if (usuario) {
-            setFoto(usuario.photo || null);
-            setTheme(usuario.theme || null);
-            setNome(usuario.name || "");
-        }
-    }, [usuario]);
-
-    // ───────── FOTO ─────────
-    async function escolherFoto() {
-        const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ["images"],
-            quality: 0.7,
-        });
-
-        if (!result.canceled) {
-            uploadCloudinary(result.assets[0].uri);
-        }
+  async function escolherFoto(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setLoading(true);
+    setError("");
+    try {
+      setFoto(await uploadImagem(file));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    async function uploadCloudinary(uri) {
-        try {
-            const data = new FormData();
-
-            data.append("file", {
-                uri,
-                type: "image/jpeg",
-                name: "profile.jpg",
-            });
-
-            data.append("upload_preset", "foto_perfil");
-
-            const res = await fetch(
-                "https://api.cloudinary.com/v1_1/dtmiwy78p/image/upload",
-                {
-                    method: "POST",
-                    body: data,
-                }
-            );
-
-            const json = await res.json();
-
-            if (!json.secure_url) throw new Error();
-
-            setFoto(json.secure_url);
-
-        } catch {
-            Alert.alert("Erro ao enviar imagem");
-        }
+  async function salvar() {
+    if (!firebaseUser || !nome.trim()) return;
+    setLoading(true);
+    setError("");
+    try {
+      const data = { photo: foto, theme: theme || null, name: nome.trim() };
+      await atualizarPerfil(firebaseUser.uid, data);
+      refreshUsuario(data);
+      setMessage("Perfil atualizado com sucesso.");
+    } catch {
+      setError("Não foi possível salvar seu perfil.");
+    } finally {
+      setLoading(false);
     }
+  }
 
-    // ───────── SALVAR ─────────
-    async function salvar(uid, navigation) {
-        try {
-            const dados = {};
-
-            if (foto !== undefined) dados.photo = foto;
-            if (theme !== undefined) dados.theme = theme || null;
-            if (nome !== undefined) dados.name = nome;
-
-            await atualizarPerfil(uid, dados);
-
-            // 🔥 atualiza na hora (SEM relogar)
-            refreshUsuario(dados);
-
-            Alert.alert("Sucesso", "Perfil atualizado!");
-            navigation.goBack();
-
-        } catch {
-            Alert.alert("Erro ao salvar");
-        }
-    }
-
-    // ───────── REMOVER FOTO ─────────
-
-    function removerFoto() {
-        setFoto(null);
-    }
-
-    return {
-        foto,
-        theme,
-        nome,
-        setTheme,
-        setNome,
-        escolherFoto,
-        salvar,
-        removerFoto,
-    };
+  return {
+    foto,
+    theme,
+    nome,
+    setTheme,
+    setNome,
+    escolherFoto,
+    salvar,
+    removerFoto: () => setFoto(null),
+    loading,
+    message,
+    error,
+  };
 }
