@@ -4,8 +4,8 @@ import styled from "styled-components";
 import AvatarImage from "../../assets/image/avatar.png";
 import CoverImage from "../../assets/image/cover.png";
 
+import LevelProgress from "../../components/LevelProgress";
 import { useAuth } from "../../hooks/useAuth";
-import { getTituloLevel } from "../../services/firestore";
 
 import {
   Button,
@@ -142,26 +142,6 @@ const UserName = styled(Title)`
   @media (max-width: 700px) {
     font-size: 28px;
   }
-`;
-
-const XPBar = styled.div`
-  width: 100%;
-  border-radius: 999px;
-
-  padding: 14px 22px;
-
-  background: linear-gradient(
-    135deg,
-    #7b22d4,
-    #b030d8
-  );
-
-  color: white;
-
-  font-size: 15px;
-  font-weight: 600;
-
-  box-shadow: 0 8px 22px rgba(123, 34, 212, 0.35);
 `;
 
 const StatsGrid = styled(Grid)`
@@ -381,12 +361,10 @@ export default function Perfil() {
                   "Usuário"}
               </UserName>
 
-              <XPBar>
-                {usuario?.xp || 0} XP •{" "}
-                {getTituloLevel(
-                  usuario?.level || 1
-                )}
-              </XPBar>
+              <LevelProgress
+                xp={usuario?.xp || 0}
+                level={usuario?.level || 1}
+              />
             </UserBlock>
 
             <StatsGrid>

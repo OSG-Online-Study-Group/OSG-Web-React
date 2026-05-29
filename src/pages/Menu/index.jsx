@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AvatarImage from "../../assets/image/avatar.png";
 import CoverImage from "../../assets/image/cover.png";
 
+import LevelProgress from "../../components/LevelProgress";
 import { useMenuStats } from "../../hooks/useMenuStats";
 
 const Page = styled.div`
@@ -229,6 +230,11 @@ const UserName = styled.h2`
 const UserLevel = styled.p`
   color: #d8c8f5;
   font-size: 17px;
+  margin-bottom: 20px;
+`;
+
+const ProgressWrapper = styled.div`
+  width: min(100%, 560px);
   margin-bottom: 44px;
 `;
 
@@ -357,6 +363,14 @@ export default function Menu() {
               {usuario?.xp || 0} XP • Nível{" "}
               {usuario?.level || 1}
             </UserLevel>
+
+            <ProgressWrapper>
+              <LevelProgress
+                compact
+                xp={usuario?.xp || 0}
+                level={usuario?.level || 1}
+              />
+            </ProgressWrapper>
           </ProfileCenter>
 
           <StatsGrid>
