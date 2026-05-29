@@ -1,4 +1,4 @@
-import { FaBookOpen, FaGamepad, FaHome, FaLayerGroup, FaTrophy, FaUser } from "react-icons/fa";
+import { FaGamepad, FaHome, FaLayerGroup, FaTrophy, FaUser } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { useDuelosPendentes } from "../../hooks/useDuelo";
@@ -37,6 +37,7 @@ const Logo = styled.div`
   font-size: 2rem;
   font-weight: 800;
   letter-spacing: 0.1em;
+  text-align: center;
 
   @media (max-width: 720px) {
     display: none;
@@ -106,7 +107,7 @@ export default function AppLayout() {
           <Item to="/game"><FaGamepad /><span>Jogar</span>{total > 0 && <Count>{total}</Count>}</Item>
           <Item to="/ranking"><FaTrophy /><span>Ranking</span></Item>
           <Item to="/perfil"><FaUser /><span>Perfil</span></Item>
-          <Item to="/doacao"><FaBookOpen /><span>Apoie</span></Item>
+        
         </Links>
       </Sidebar>
       <Content>
