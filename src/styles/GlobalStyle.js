@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background: #160c22;
     color: #fff;
-    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-family: "DM Sans", "Segoe UI", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 

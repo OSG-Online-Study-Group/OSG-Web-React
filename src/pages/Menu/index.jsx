@@ -18,7 +18,6 @@ const Page = styled.div`
   display: flex;
   overflow: hidden;
   color: white;
-  font-family: "Segoe UI", sans-serif;
 `;
 
 /* ───────────────── Sidebar ───────────────── */
