@@ -22,37 +22,60 @@ const Header = styled.div`
 const ChatWrapper = styled(Card)`
   height: calc(100vh - 180px);
   min-height: 560px;
+
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
+
   padding: 0;
+
   border-radius: 32px;
-  background: linear-gradient(180deg, #31104d 0%, #22063b 100%);
+
+  background: linear-gradient(
+    180deg,
+    #31104d 0%,
+    #22063b 100%
+  );
+
   border: 1px solid rgba(196, 68, 224, 0.16);
 `;
 
 const ChatTop = styled.div`
   padding: 24px 28px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  border-bottom: 1px solid
+    rgba(255, 255, 255, 0.06);
 
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+
+  flex-wrap: wrap;
 `;
 
 const GroupInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+
+  min-width: 0;
 `;
 
 const GroupIcon = styled.div`
   width: 62px;
   height: 62px;
+
   border-radius: 22px;
 
-  background: linear-gradient(135deg, #7c3aed, #c644e0);
+  flex-shrink: 0;
+
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #c644e0
+  );
 
   display: flex;
   align-items: center;
@@ -60,33 +83,48 @@ const GroupIcon = styled.div`
 
   font-size: 28px;
 
-  box-shadow: 0 10px 26px rgba(198, 68, 224, 0.35);
+  box-shadow: 0 10px 26px
+    rgba(198, 68, 224, 0.35);
 `;
 
 const GroupTexts = styled.div`
+  min-width: 0;
+
   h2 {
     color: white;
     font-size: 1.4rem;
     margin-bottom: 5px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
 const OnlineBadge = styled.div`
   padding: 8px 14px;
+
   border-radius: 999px;
 
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(196, 68, 224, 0.24);
+
+  border: 1px solid
+    rgba(196, 68, 224, 0.24);
 
   color: #d492fb;
+
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.5px;
+
+  white-space: nowrap;
 `;
 
 const Messages = styled.div`
   flex: 1;
+
   overflow-y: auto;
+  overflow-x: hidden;
 
   display: flex;
   flex-direction: column;
@@ -100,6 +138,8 @@ const Row = styled.div`
   align-items: flex-end;
   gap: 10px;
 
+  width: 100%;
+
   flex-direction: ${({ $mine }) =>
     $mine ? "row-reverse" : "row"};
 `;
@@ -107,13 +147,18 @@ const Row = styled.div`
 const Avatar = styled.div`
   width: 42px;
   height: 42px;
+
   border-radius: 50%;
 
   flex-shrink: 0;
 
   overflow: hidden;
 
-  background: linear-gradient(135deg, #7c3aed, #c644e0);
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #c644e0
+  );
 
   display: flex;
   align-items: center;
@@ -121,13 +166,16 @@ const Avatar = styled.div`
 
   font-size: 0.8rem;
   font-weight: 700;
+
   color: white;
 
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 6px 16px
+    rgba(0, 0, 0, 0.28);
 
   img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
   }
 `;
@@ -135,22 +183,37 @@ const Avatar = styled.div`
 const BubbleWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
   align-items: ${({ $mine }) =>
     $mine ? "flex-end" : "flex-start"};
+
+  min-width: 0;
+  max-width: 100%;
 `;
 
 const Sender = styled.small`
   color: #d7c2f0;
+
   margin-bottom: 6px;
+
   padding: 0 4px;
+
   font-size: 0.76rem;
   font-weight: 700;
+
+  max-width: 100%;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Bubble = styled.div`
   max-width: min(78%, 620px);
+  min-width: 120px;
 
   padding: 14px 16px;
+
   border-radius: 22px;
 
   background: ${({ $mine }) =>
@@ -166,22 +229,39 @@ const Bubble = styled.div`
         ? "rgba(255,255,255,0.08)"
         : "rgba(196, 68, 224, 0.12)"};
 
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 10px 24px
+    rgba(0, 0, 0, 0.22);
 
   line-height: 1.5;
+
+  overflow-wrap: break-word;
   word-break: break-word;
+  white-space: pre-wrap;
+`;
+
+const MessageText = styled.div`
+  width: 100%;
 `;
 
 const BubbleFooter = styled.div`
-  margin-top: 7px;
+  margin-top: 10px;
 
   display: flex;
   align-items: center;
-  gap: 10px;
   justify-content: flex-end;
+  gap: 10px;
+
+  flex-wrap: nowrap;
 
   color: #ceb3ea;
+
   font-size: 0.72rem;
+
+  white-space: nowrap;
+`;
+
+const Time = styled.span`
+  flex-shrink: 0;
 `;
 
 const Delete = styled.button`
@@ -189,12 +269,17 @@ const Delete = styled.button`
   border: none;
 
   color: #ffb3b3;
+
   cursor: pointer;
 
   font-size: 0.72rem;
   font-weight: 700;
 
   transition: opacity 0.2s ease;
+
+  flex-shrink: 0;
+
+  white-space: nowrap;
 
   &:hover {
     opacity: 0.7;
@@ -203,7 +288,9 @@ const Delete = styled.button`
 
 const FormArea = styled.div`
   padding: 22px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  border-top: 1px solid
+    rgba(255, 255, 255, 0.06);
 
   background: rgba(0, 0, 0, 0.08);
 `;
@@ -212,6 +299,11 @@ const Form = styled.form`
   display: flex;
   align-items: flex-end;
   gap: 14px;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -221,13 +313,16 @@ const InputWrapper = styled.div`
 
 const Textarea = styled.textarea`
   width: 100%;
+
   min-height: 58px;
   max-height: 140px;
 
   resize: none;
 
   border-radius: 20px;
-  border: 1px solid rgba(196, 68, 224, 0.2);
+
+  border: 1px solid
+    rgba(196, 68, 224, 0.2);
 
   background: #29163c;
   color: white;
@@ -239,13 +334,17 @@ const Textarea = styled.textarea`
   font-size: 0.95rem;
   line-height: 1.5;
 
+  overflow-wrap: break-word;
+
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 
   &:focus {
     border-color: #c644e0;
-    box-shadow: 0 0 0 4px rgba(198, 68, 224, 0.12);
+
+    box-shadow: 0 0 0 4px
+      rgba(198, 68, 224, 0.12);
   }
 
   &::placeholder {
@@ -261,6 +360,7 @@ const Empty = styled.div`
   justify-content: center;
 
   color: #cdb8e9;
+
   text-align: center;
 `;
 
@@ -317,11 +417,13 @@ export default function GrupoChat() {
   if (!authorized) {
     return (
       <Page>
-        <Title>Grupo indisponível</Title>
+        <Title>
+          Grupo indisponível
+        </Title>
 
         <Card>
-          Você precisa participar deste grupo
-          para acessar a conversa.
+          Você precisa participar deste
+          grupo para acessar a conversa.
         </Card>
       </Page>
     );
@@ -331,12 +433,13 @@ export default function GrupoChat() {
     <Page>
       <Header>
         <Title>
-          {group?.name || "Conversa do grupo"}
+          {group?.name ||
+            "Conversa do grupo"}
         </Title>
 
         <Muted>
-          Conversas sincronizadas em tempo real
-          entre web e aplicativo.
+          Conversas sincronizadas em tempo
+          real entre web e aplicativo.
         </Muted>
       </Header>
 
@@ -356,7 +459,9 @@ export default function GrupoChat() {
             </GroupTexts>
           </GroupInfo>
 
-          <OnlineBadge>ONLINE</OnlineBadge>
+          <OnlineBadge>
+            ONLINE
+          </OnlineBadge>
         </ChatTop>
 
         <Messages>
@@ -386,11 +491,15 @@ export default function GrupoChat() {
                   <Avatar>
                     {message.senderPhoto ? (
                       <img
-                        src={message.senderPhoto}
+                        src={
+                          message.senderPhoto
+                        }
                         alt=""
                       />
                     ) : (
-                      initials(message.senderName)
+                      initials(
+                        message.senderName
+                      )
                     )}
                   </Avatar>
                 )}
@@ -410,14 +519,16 @@ export default function GrupoChat() {
                       </em>
                     ) : (
                       <>
-                        {message.text}
+                        <MessageText>
+                          {message.text}
+                        </MessageText>
 
                         <BubbleFooter>
-                          <span>
+                          <Time>
                             {formatTime(
                               message.createdAt
                             )}
-                          </span>
+                          </Time>
 
                           {isAdmin && (
                             <Delete
