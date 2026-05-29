@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Logo from "../../assets/image/logo_OSG.png";
+import QRCodeImage from "../../assets/image/qrcode-pix.png";
 
 import {
   Button,
@@ -12,14 +13,13 @@ import {
   Title,
 } from "../../styles/ui";
 
-const PIX_KEY = "seu-email@exemplo.com";
+const PIX_KEY =
+  import.meta.env.VITE_PIX_KEY || "";
 
 const BUYMEACOFFEE_URL =
-  "https://buymeacoffee.com/seu-usuario";
+  "https://buymeacoffee.com/Online_Study_Group";
 
-const QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(
-  PIX_KEY
-)}&bgcolor=1a0630&color=d63acd&qzone=2`;
+const QR_URL = QRCodeImage;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -65,7 +65,8 @@ const HeroSection = styled(Card)`
     #8b1fc8 100%
   );
 
-  box-shadow: 0 12px 40px rgba(140, 30, 200, 0.25);
+  box-shadow: 0 12px 40px
+    rgba(140, 30, 200, 0.25);
 
   &::before {
     content: "";
@@ -80,7 +81,12 @@ const HeroSection = styled(Card)`
 
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(
+      255,
+      255,
+      255,
+      0.08
+    );
   }
 
   @media (max-width: 700px) {
@@ -139,15 +145,22 @@ const LogoWrapper = styled.div`
 
   border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(
+    255,
+    255,
+    255,
+    0.08
+  );
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid
+    rgba(255, 255, 255, 0.12);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 30px
+    rgba(255, 255, 255, 0.08);
 
   flex-shrink: 0;
 `;
@@ -155,6 +168,7 @@ const LogoWrapper = styled.div`
 const LogoImage = styled.img`
   width: 78px;
   height: 78px;
+
   object-fit: contain;
 `;
 
@@ -162,7 +176,10 @@ const CardsGrid = styled.div`
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(
+    3,
+    1fr
+  );
 
   gap: 18px;
 
@@ -197,7 +214,12 @@ const DonateCard = styled(Card)`
   &:hover {
     transform: translateY(-2px);
 
-    border-color: rgba(214, 58, 205, 0.45);
+    border-color: rgba(
+      214,
+      58,
+      205,
+      0.45
+    );
 
     box-shadow: 0 10px 32px
       rgba(196, 68, 224, 0.18);
@@ -272,6 +294,8 @@ const ExpandArea = styled.div`
 const QRImage = styled.img`
   width: 180px;
   height: 180px;
+
+  object-fit: cover;
 
   border-radius: 18px;
 
@@ -374,7 +398,12 @@ const TextArea = styled.textarea`
   }
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.24);
+    color: rgba(
+      255,
+      255,
+      255,
+      0.24
+    );
   }
 `;
 
@@ -384,6 +413,13 @@ const Footer = styled.p`
   font-size: 12px;
 
   opacity: 0.28;
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #d178ff;
 `;
 
 export default function Doacao() {
@@ -413,6 +449,8 @@ export default function Doacao() {
   function handleCopy(e) {
     e.stopPropagation();
 
+    if (!PIX_KEY) return;
+
     navigator.clipboard.writeText(
       PIX_KEY
     );
@@ -428,7 +466,9 @@ export default function Doacao() {
     <Page>
       <Wrapper>
         <BackButton
-          onClick={() => navigate("/perfil")}
+          onClick={() =>
+            navigate("/perfil")
+          }
         >
           ← voltar
         </BackButton>
@@ -449,12 +489,12 @@ export default function Doacao() {
                   lineHeight: "1.7",
                 }}
               >
-                Cada contribuição ajuda a
-                manter o OSG vivo e
+                Cada contribuição ajuda
+                a manter o OSG vivo e
                 gratuito para todos.
-                Escolha como deseja apoiar
-                o desenvolvimento da
-                plataforma.
+                Escolha como deseja
+                apoiar o desenvolvimento
+                da plataforma.
               </Muted>
             </HeroText>
 
@@ -544,7 +584,7 @@ export default function Doacao() {
               $open={open === "qr"}
             >
               <QRImage
-                src={QR_URL}
+                src={QRCodeImage}
                 alt="QR Code Pix"
               />
 
@@ -575,7 +615,8 @@ export default function Doacao() {
               $open={open === "pix"}
             >
               <PixBox>
-                {PIX_KEY}
+                {PIX_KEY ||
+                  "Chave Pix não configurada"}
               </PixBox>
 
               <CopyButton
@@ -611,9 +652,7 @@ export default function Doacao() {
             devs 💜
           </SectionTitle>
 
-          <TextArea
-            placeholder="Escreva algo aqui..."
-          />
+          <TextArea placeholder="Escreva algo aqui..." />
 
           <div
             style={{
@@ -635,10 +674,3 @@ export default function Doacao() {
     </Page>
   );
 }
-
-const SectionTitle = styled.h2`
-  font-size: 20px;
-  font-weight: 700;
-
-  color: #d178ff;
-`;
