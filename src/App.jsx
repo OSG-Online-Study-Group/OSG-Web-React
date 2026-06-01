@@ -1,111 +1,11 @@
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import { Abertura } from "./components/abertura";
-import Cadastro from "./components/cadastro";
-import { ConviteDuelo } from "./components/convite_duelo";
-import EscolhaMaterias from "./components/escolha_materias";
-import { Game } from "./components/game";
-
-import { Home } from "./components/home";
-import Login from "./components/login";
-import { Treino } from "./components/treino";
-
-import Profile from "./components/profile";
-import Mensagem from "./components/mensagem";
-
-import Ranking from "./components/ranking";
-import RankingUser from "./components/rankingUser";
-
-import { DuelosPendentes } from "./components/duelos_pendentes";
-
-import DueloAleatorio from "./components/duelo-aleatorio";
-
-import Doacao from "./components/Mendigagem/doacao";
-
-import { Grupos } from "./components/grupos";
-
-import Chat from "./components/chat/chat";
-
-/* IMPORT CORRIGIDO */
-import EditarPerfil from "./components/Editar_Perfil/EditarPerfil";
+import AppRouter from "./routes/AppRouter";
+import { GlobalStyle } from "./styles/GlobalStyle";
 
 export default function App() {
   return (
-    <div className="container-app">
-      <Router basename="/OSG-Web-React">
-        <Routes>
-
-          {/* Tela inicial */}
-          <Route path="/" element={<Abertura />} />
-
-          {/* Login e cadastro */}
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Cadastro" element={<Cadastro />} />
-
-          {/* Escolha de matérias */}
-          <Route
-            path="/EscolhaMaterias"
-            element={<EscolhaMaterias />}
-          />
-
-          {/* Home */}
-          <Route path="/Home" element={<Home />} />
-
-          {/* Grupos */}
-          <Route path="/Grupos" element={<Grupos />} />
-
-          {/* Chat dinâmico */}
-          <Route path="/chat/:grupo" element={<Chat />} />
-
-          {/* Duelos */}
-          <Route
-            path="/DuelosPendentes"
-            element={<DuelosPendentes />}
-          />
-
-          <Route
-            path="/ConviteDuelo"
-            element={<ConviteDuelo />}
-          />
-
-          <Route
-            path="/DueloAleatorio"
-            element={<DueloAleatorio />}
-          />
-
-          {/* Game */}
-          <Route path="/Game" element={<Game />} />
-
-          {/* Treino */}
-          <Route path="/Treino" element={<Treino />} />
-
-          {/* Perfil */}
-          <Route path="/Profile" element={<Profile />} />
-
-          {/* Editar Perfil */}
-          <Route
-            path="/EditarPerfil"
-            element={<EditarPerfil />}
-          />
-
-          {/* Mensagens */}
-          <Route path="/Mensagem" element={<Mensagem />} />
-
-          {/* Ranking */}
-          <Route path="/Ranking" element={<Ranking />} />
-
-          <Route
-            path="/RankingUser"
-            element={<RankingUser />}
-          />
-
-          {/* Doação */}
-          <Route path="/Doacao" element={<Doacao />} />
-
-        </Routes>
-      </Router>
-    </div>
+    <>
+      <GlobalStyle />
+      <AppRouter />
+    </>
   );
 }
-
