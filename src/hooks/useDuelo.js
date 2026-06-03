@@ -9,6 +9,7 @@ import {
   salvarRespostaDuelo,
   verificarDuelosExpirados,
 } from "../services/firestore";
+import { isE2EMockMode } from "../test/e2eMocks";
 import { useAuth } from "./useAuth";
 
 export function useDuelosPendentes() {
@@ -16,6 +17,7 @@ export function useDuelosPendentes() {
   const [pendentes, setPendentes] = useState([]);
 
   useEffect(() => {
+    if (isE2EMockMode) return undefined;
     if (!firebaseUser) return undefined;
     verificarDuelosExpirados(firebaseUser.uid).catch(() => {});
     return ouvirDuelosPendentes(firebaseUser.uid, setPendentes, () => setPendentes([]));

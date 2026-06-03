@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { atualizarXP, buscarUsuario, registrarQuizDiario } from "../services/firestore";
 import { enviarMensagemParaIA } from "../services/openrouter";
+import { E2E_DAILY_QUIZ, isE2EMockMode } from "../test/e2eMocks";
 import { useAuth } from "./useAuth";
 
 const MATERIAS = [
@@ -55,10 +56,10 @@ function parseQuiz(raw, materia) {
 
 export function useQuizDiario() {
   const { firebaseUser, refreshUsuario } = useAuth();
-  const [quiz, setQuiz] = useState(null);
+  const [quiz, setQuiz] = useState(isE2EMockMode ? E2E_DAILY_QUIZ : null);
   const [perguntaIndex, setPerguntaIndex] = useState(0);
   const [respostas, setRespostas] = useState([]);
-  const [carregando, setCarregando] = useState(true);
+  const [carregando, setCarregando] = useState(!isE2EMockMode);
   const [jaJogouHoje, setJaJogouHoje] = useState(false);
   const [finalizado, setFinalizado] = useState(false);
   const [xpGanho, setXpGanho] = useState(0);
@@ -78,6 +79,8 @@ export function useQuizDiario() {
   }, []);
 
   useEffect(() => {
+    if (isE2EMockMode) return undefined;
+
     let active = true;
     async function load() {
       setCarregando(true);
@@ -114,6 +117,15 @@ export function useQuizDiario() {
     setAcertos(correct);
     setXpGanho(xp);
     setFinalizado(true);
+
+    if (isE2EMockMode) {
+      if (xp > 0) {
+        refreshUsuario({ xp: 720 + xp, level: 4 });
+      }
+      setJaJogouHoje(true);
+      return;
+    }
+
     if (!firebaseUser) return;
     if (xp > 0) {
       const result = await atualizarXP(firebaseUser.uid, xp, MATERIA_TO_GROUP[quiz.materia] || null);

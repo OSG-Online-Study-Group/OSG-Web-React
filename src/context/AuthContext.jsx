@@ -7,15 +7,18 @@ import {
 } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../services/firebase";
+import { E2E_FIREBASE_USER, E2E_USER, isE2EMockMode } from "../test/e2eMocks";
 import { AuthContext } from "./auth-context";
 
 export function AuthProvider({ children }) {
-  const [usuario, setUsuario] = useState(null);
-  const [firebaseUser, setFirebaseUser] = useState(null);
-  const [carregando, setCarregando] = useState(true);
+  const [usuario, setUsuario] = useState(isE2EMockMode ? E2E_USER : null);
+  const [firebaseUser, setFirebaseUser] = useState(isE2EMockMode ? E2E_FIREBASE_USER : null);
+  const [carregando, setCarregando] = useState(!isE2EMockMode);
   const [erro, setErro] = useState("");
 
   useEffect(() => {
+    if (isE2EMockMode) return undefined;
+
     let unsubscribeSnapshot;
     let active = true;
 
@@ -56,6 +59,12 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function logout() {
+    if (isE2EMockMode) {
+      setFirebaseUser(null);
+      setUsuario(null);
+      return;
+    }
+
     await signOut(auth);
   }
 

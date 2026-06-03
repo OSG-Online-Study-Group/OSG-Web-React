@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { GROUPS } from "../constants/groups";
 import { ouvirRankingGeral, ouvirUsuarios } from "../services/firestore";
+import { E2E_RANKING, isE2EMockMode } from "../test/e2eMocks";
 
 export function useRankingGeral() {
-  const [usuarios, setUsuarios] = useState([]);
-  const [carregando, setCarregando] = useState(true);
+  const [usuarios, setUsuarios] = useState(isE2EMockMode ? E2E_RANKING : []);
+  const [carregando, setCarregando] = useState(!isE2EMockMode);
   const [erro, setErro] = useState("");
 
   useEffect(
-    () =>
-      ouvirRankingGeral(
+    () => {
+      if (isE2EMockMode) return undefined;
+
+      return ouvirRankingGeral(
         (users) => {
           setUsuarios(users);
           setCarregando(false);
@@ -18,7 +21,8 @@ export function useRankingGeral() {
           setErro("Não foi possível carregar o ranking.");
           setCarregando(false);
         },
-      ),
+      );
+    },
     [],
   );
 
@@ -26,18 +30,21 @@ export function useRankingGeral() {
 }
 
 export function useRankingTodosGrupos() {
-  const [usuarios, setUsuarios] = useState([]);
-  const [carregando, setCarregando] = useState(true);
+  const [usuarios, setUsuarios] = useState(isE2EMockMode ? E2E_RANKING : []);
+  const [carregando, setCarregando] = useState(!isE2EMockMode);
 
   useEffect(
-    () =>
-      ouvirUsuarios(
+    () => {
+      if (isE2EMockMode) return undefined;
+
+      return ouvirUsuarios(
         (users) => {
           setUsuarios(users);
           setCarregando(false);
         },
         () => setCarregando(false),
-      ),
+      );
+    },
     [],
   );
 
