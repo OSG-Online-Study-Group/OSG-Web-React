@@ -43,19 +43,14 @@ npm run test:all
 - Quiz Diário com interação em perguntas e resultado final com XP conquistado.
 - Login com falha de autenticação simulada.
 - Fluxos E2E autenticados em `/menu`, `/perfil` e `/quiz-diario`.
-- Validação básica de layout responsivo em viewport mobile.
+- Validação dos fluxos E2E em navegador web desktop.
 
 ## Evidências geradas
 
 - Capturas de tela dos fluxos E2E:
-  - `test-results/screenshots/chromium-menu.png`
-  - `test-results/screenshots/chromium-perfil.png`
-  - `test-results/screenshots/chromium-quiz-concluido.png`
-  - `test-results/screenshots/chromium-mobile-menu.png`
-  - `test-results/screenshots/mobile-chrome-menu.png`
-  - `test-results/screenshots/mobile-chrome-perfil.png`
-  - `test-results/screenshots/mobile-chrome-quiz-concluido.png`
-  - `test-results/screenshots/mobile-chrome-mobile-menu.png`
+  - `test-results/screenshots/web-menu.png`
+  - `test-results/screenshots/web-perfil.png`
+  - `test-results/screenshots/web-quiz-concluido.png`
 - Relatório HTML do Playwright:
   - `playwright-report/index.html`
 - Traces e vídeos são mantidos automaticamente quando houver falha.

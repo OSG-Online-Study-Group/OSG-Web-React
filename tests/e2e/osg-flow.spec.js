@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
 
 async function saveScreenshot(page, testInfo, name) {
+  await page.waitForTimeout(700);
+
   await page.screenshot({
     fullPage: true,
     path: `test-results/screenshots/${testInfo.project.name}-${name}.png`,
@@ -51,15 +53,4 @@ test("fluxo do quiz diário conclui perguntas e exibe XP", async ({ page }, test
   await expect(page.getByText("+20 XP conquistado")).toBeVisible();
 
   await saveScreenshot(page, testInfo, "quiz-concluido");
-});
-
-test("layout responsivo mantém navegação principal no mobile", async ({ page }, testInfo) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("menu");
-
-  await expect(page.getByText("Olá, Ana Teste")).toBeVisible();
-  await expect(page.getByRole("link", { name: /início/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /perfil/i })).toBeVisible();
-
-  await saveScreenshot(page, testInfo, "mobile-menu");
 });

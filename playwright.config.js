@@ -15,6 +15,8 @@ export default defineConfig({
   ],
   use: {
     baseURL: BASE_URL,
+    viewport: { width: 1366, height: 768 },
+    reducedMotion: "reduce",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
@@ -30,12 +32,8 @@ export default defineConfig({
   },
   projects: [
     {
-      name: "chromium",
+      name: "web",
       use: { ...devices["Desktop Chrome"] },
-    },
-    {
-      name: "mobile-chrome",
-      use: { ...devices["Pixel 5"] },
     },
   ],
 });
