@@ -17,6 +17,7 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { enviarMensagemParaIA } from "./openrouter";
+import { MULTIPLE_CHOICE_RULES, parseQuizMultiplaEscolha } from "./aiQuestionParser";
 
 export function calcularLevel(xp) {
   if (xp >= 2500) return 7;
@@ -118,39 +119,17 @@ export function ouvirUsuarios(callback, onError) {
   );
 }
 
-function parseQuestions(raw) {
-  const match = raw?.match(/\{[\s\S]*\}/);
-  if (!match) return null;
-  try {
-    const parsed = JSON.parse(match[0]);
-    const questions = parsed.perguntas;
-    if (
-      !Array.isArray(questions) ||
-      questions.length !== 5 ||
-      questions.some(
-        (question) =>
-          !question.pergunta ||
-          !Array.isArray(question.alternativas) ||
-          question.alternativas.length !== 4 ||
-          !Number.isInteger(question.correta),
-      )
-    ) {
-      return null;
-    }
-    return questions;
-  } catch {
-    return null;
-  }
-}
-
 async function gerarPerguntasDuelo() {
   const topics = ["Matematica", "Fisica", "Quimica", "Biologia", "Historia", "Portugues"];
   const topic = topics[Math.floor(Math.random() * topics.length)];
   const response = await enviarMensagemParaIA(`
     Gere 5 perguntas de multipla escolha de ensino medio sobre ${topic}.
     Retorne somente JSON: {"perguntas":[{"pergunta":"texto","alternativas":["A","B","C","D"],"correta":0}]}.
+    Cada alternativa precisa trazer conteúdo real e completo, sem usar apenas letras, números soltos ou rótulos como "A)".
+    A interface já exibe as letras das alternativas, então não repita isso no texto da IA.
+    ${MULTIPLE_CHOICE_RULES}
   `);
-  return parseQuestions(response);
+  return parseQuizMultiplaEscolha(response)?.perguntas || null;
 }
 
 export async function criarDuelo(desafianteId, desafianteNome, desafiadoId, desafiadoNome) {

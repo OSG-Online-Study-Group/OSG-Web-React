@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { atualizarXP, buscarUsuario, registrarQuizDiario } from "../services/firestore";
 import { enviarMensagemParaIA } from "../services/openrouter";
+import { MULTIPLE_CHOICE_RULES, parseQuizMultiplaEscolha } from "../services/aiQuestionParser";
 import { useAuth } from "./useAuth";
 
 const MATERIAS = [
@@ -33,26 +34,6 @@ function todayKey() {
   return new Date().toISOString().split("T")[0];
 }
 
-function parseQuiz(raw, materia) {
-  try {
-    const match = raw?.match(/\{[\s\S]*\}/);
-    const parsed = match ? JSON.parse(match[0]) : null;
-    if (
-      !Array.isArray(parsed?.perguntas) ||
-      parsed.perguntas.length !== 5 ||
-      parsed.perguntas.some(
-        (question) =>
-          !question.pergunta ||
-          question.alternativas?.length !== 4 ||
-          !Number.isInteger(question.correta),
-      )
-    ) return null;
-    return { materia: parsed.materia || materia, perguntas: parsed.perguntas };
-  } catch {
-    return null;
-  }
-}
-
 export function useQuizDiario() {
   const { firebaseUser, refreshUsuario } = useAuth();
   const [quiz, setQuiz] = useState(null);
@@ -70,8 +51,12 @@ export function useQuizDiario() {
       const raw = await enviarMensagemParaIA(`
         Gere 5 perguntas de múltipla escolha de ensino médio sobre ${materia}.
         Retorne somente JSON: {"materia":"${materia}","perguntas":[{"pergunta":"texto","alternativas":["A","B","C","D"],"correta":0}]}.
+        Cada alternativa precisa trazer conteúdo real e completo, sem usar apenas letras, números soltos ou rótulos como "A)".
+        A interface já exibe as letras das alternativas, então não repita isso no texto da IA.
+        ${MULTIPLE_CHOICE_RULES}
       `);
-      setQuiz(parseQuiz(raw, materia) || { materia, perguntas: FALLBACK });
+      const parsed = parseQuizMultiplaEscolha(raw, 5);
+      setQuiz(parsed ? { materia: parsed.materia || materia, perguntas: parsed.perguntas } : { materia, perguntas: FALLBACK });
     } catch {
       setQuiz({ materia, perguntas: FALLBACK });
     }

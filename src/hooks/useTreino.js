@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { atualizarXP } from "../services/firestore";
 import { enviarMensagemParaIA } from "../services/openrouter";
+import { MULTIPLE_CHOICE_RULES, parsePerguntaMultiplaEscolha } from "../services/aiQuestionParser";
 import { useAuth } from "./useAuth";
 
 const XP_POR_ACERTO = 10;
@@ -12,18 +13,6 @@ export const CATEGORIAS = {
   informatica: { label: "Informática", content: "Lógica, Programação ou Redes" },
 };
 const FALLBACK = { pergunta: "Qual é o resultado de 2 + 2?", alternativas: ["3", "4", "5", "6"], correta: 1 };
-
-function parseQuestion(raw) {
-  try {
-    const match = raw?.match(/\{[\s\S]*\}/);
-    const question = match ? JSON.parse(match[0]) : null;
-    return question?.pergunta && question.alternativas?.length === 4 && Number.isInteger(question.correta)
-      ? question
-      : null;
-  } catch {
-    return null;
-  }
-}
 
 export function useTreino(categoria) {
   const { firebaseUser, refreshUsuario } = useAuth();
@@ -43,8 +32,11 @@ export function useTreino(categoria) {
       const raw = await enviarMensagemParaIA(`
         Gere uma pergunta de múltipla escolha sobre ${config.content}.
         Retorne somente JSON: {"pergunta":"texto","alternativas":["A","B","C","D"],"correta":0}.
+        Cada alternativa precisa trazer conteúdo real e completo, sem usar apenas letras, números soltos ou rótulos como "A)".
+        A interface já exibe as letras das alternativas, então não repita isso no texto da IA.
+        ${MULTIPLE_CHOICE_RULES}
       `);
-      setPergunta(parseQuestion(raw) || FALLBACK);
+      setPergunta(parsePerguntaMultiplaEscolha(raw) || FALLBACK);
     } catch {
       setPergunta(FALLBACK);
     } finally {
