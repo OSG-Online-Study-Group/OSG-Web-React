@@ -268,7 +268,7 @@ const FinalScoreBox = styled.div`
 `;
 
 const Reward = styled.div`
-  margin-top: 18px;
+  margin-top: 5px;
   font-size: 1.1rem;
   color: #d492fb;
   font-weight: 700;
@@ -413,7 +413,7 @@ export default function DueloAmigo() {
                 ? "+10 XP"
                 : win
                 ? "+25 XP"
-                : "+0 XP"}
+                : ""}
             </Reward>
 
             <Button
