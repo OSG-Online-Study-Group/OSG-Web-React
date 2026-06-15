@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useRankingGeral, useRankingTodosGrupos } from "../../hooks/useRanking";
-
 import {
   Button,
   Card,
@@ -23,6 +22,8 @@ const GROUP_ICONS = {
   "Ciências da Natureza": "🔬",
   Informática: "💻",
 };
+
+import defaultAvatar from "../../assets/image/profile_photo.jpg";
 
 /* ───────────────────────────────────────────── */
 /* Animations */
@@ -344,6 +345,20 @@ const XP = styled.div`
 /* Component */
 /* ───────────────────────────────────────────── */
 
+const getAvatar = (photo) => {
+  if (
+    !photo ||
+    photo === "null" ||
+    photo === "undefined"
+  ) {
+    return defaultAvatar;
+  }
+
+  return photo;
+};
+
+
+
 export default function Ranking() {
   const [groupsMode, setGroupsMode] = useState(false);
 
@@ -444,8 +459,8 @@ export default function Ranking() {
                           pos === 1
                             ? 2
                             : pos === 2
-                            ? 1
-                            : 3,
+                              ? 1
+                              : 3,
                       }}
                     >
                       {pos === 1 && (
@@ -462,9 +477,13 @@ export default function Ranking() {
                           </GroupIconLarge>
                         ) : (
                           <Avatar
-                            src={item.photo}
+                            src={getAvatar(item.photo)}
                             alt={item.name}
                             $first={pos === 1}
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = defaultAvatar;
+                            }}
                           />
                         )}
 
@@ -510,8 +529,12 @@ export default function Ranking() {
                     </GroupIconSmall>
                   ) : (
                     <MiniAvatar
-                      src={item.photo}
+                      src={getAvatar(item.photo)}
                       alt={item.name}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = defaultAvatar;
+                      }}
                     />
                   )}
 
