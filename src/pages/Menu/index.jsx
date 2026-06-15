@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import AvatarImage from "../../assets/image/avatar.png";
+import AvatarImage from "../../assets/image/profile_photo.jpg";
 import CoverImage from "../../assets/image/cover.png";
 
 import LevelProgress from "../../components/LevelProgress";
