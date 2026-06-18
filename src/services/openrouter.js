@@ -1,5 +1,10 @@
 const API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+const DEFAULT_SYSTEM_PROMPT = `
+Responda em português do Brasil.
+Quando o usuário pedir perguntas ou alternativas de múltipla escolha, retorne apenas JSON válido e use alternativas com conteúdo completo.
+Não devolva alternativas que sejam só letras, rótulos ou variações como "A", "A)", "B" ou "Alternativa A".
+`.trim();
 const MODELS = [
   "nvidia/nemotron-3-nano-30b-a3b:free",
   "google/gemma-3-4b-it:free",
@@ -33,7 +38,10 @@ export async function enviarMensagemParaIA(prompt) {
         },
         body: JSON.stringify({
           model,
-          messages: [{ role: "user", content: prompt }],
+          messages: [
+            { role: "system", content: DEFAULT_SYSTEM_PROMPT },
+            { role: "user", content: prompt },
+          ],
         }),
       });
       const data = await response.json().catch(() => ({}));
